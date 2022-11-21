@@ -1,16 +1,16 @@
 version: "3"
 services:
   influxdb:
-    image: influxdb:2.5
+    image: influxdb:1.8.10
     container_name: influxdb
     environment:
       - TZ=${TIMEZONE}
-      - INFLUXD_REPORTING_DISABLED=true
-      - DOCKER_INFLUXDB_INIT_MODE=setup
-      - DOCKER_INFLUXDB_INIT_USERNAME=admin
-      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_ADMIN_PASSWORD} # set in .env
-      - DOCKER_INFLUXDB_INIT_ORG=ensom
-      - DOCKER_INFLUXDB_INIT_BUCKET=solar
+      #- INFLUXD_REPORTING_DISABLED=true
+      #- DOCKER_INFLUXDB_INIT_MODE=setup
+      #- DOCKER_INFLUXDB_INIT_USERNAME=admin
+      #- DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_ADMIN_PASSWORD} # set in .env
+      #- DOCKER_INFLUXDB_INIT_ORG=ensom
+      #- DOCKER_INFLUXDB_INIT_BUCKET=solar
 
     ports:
       - 8086:8086
@@ -18,19 +18,19 @@ services:
       homelab_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.32
     volumes:
-      - /var/homelab/influxdb2/data:/var/lib/influxdb2
-      - /var/homelab/influxdb2/config:/etc/influxdb2
+      - /var/homelab/influxdb/data:/var/lib/influxdb
+      - /var/homelab/influxdb/config:/etc/influxdb
     restart:
       unless-stopped
-    labels:
-      - traefik.enable=true
-      - traefik.http.services.influxdb.loadbalancer.server.port=8086
-      - traefik.http.routers.influxdb.rule=Host(`in.${PUBLIC_DOMAIN}`)
-      - traefik.http.routers.influxdb.entrypoints=websecure
+    #labels:
+      #- traefik.enable=true
+      #- traefik.http.services.influxdb.loadbalancer.server.port=8086
+      #- traefik.http.routers.influxdb.rule=Host(`in.${PUBLIC_DOMAIN}`)
+      #- traefik.http.routers.influxdb.entrypoints=websecure
         #      - traefik.http.routers.homeassistant.tls=true
-      - traefik.http.routers.influxdb.tls.certresolver=le
-      - traefik.docker.network=homelab_fatheadl-net
-      - traefik.http.routers.influxdb.middlewares=my-GeoBlock@file,simpleAuth@file
+      #- traefik.http.routers.influxdb.tls.certresolver=le
+      #- traefik.docker.network=homelab_fatheadl-net
+      #- traefik.http.routers.influxdb.middlewares=my-GeoBlock@file,simpleAuth@file
       
   grafana:
     image: grafana/grafana:9.2.3
