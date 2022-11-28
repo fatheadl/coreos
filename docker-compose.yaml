@@ -15,7 +15,7 @@ services:
     ports:
       - 8086:8086
     networks:
-      homelab_fatheadl-net:
+      core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.32
     volumes:
       - /var/homelab/influxdb/data:/var/lib/influxdb
@@ -49,7 +49,7 @@ services:
     restart:
       unless-stopped
     networks:
-      homelab_fatheadl-net:
+      care_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.33
     labels:
       - traefik.enable=true
@@ -58,7 +58,7 @@ services:
       - traefik.http.routers.grafana.entrypoints=websecure
         #      - traefik.http.routers.homeassistant.tls=true
       - traefik.http.routers.grafana.tls.certresolver=le
-      - traefik.docker.network=homelab_fatheadl-net
+      - traefik.docker.network=core_fatheadl-net
       - traefik.http.routers.grafana.middlewares=my-GeoBlock@file,simpleAuth@file
       
   node-red:
@@ -76,7 +76,7 @@ services:
     restart: unless-stopped
 #    network_mode: host
     networks:
-      homelab_fatheadl-net:
+      core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.34
     ports:
       - "1880:1880"
@@ -88,7 +88,7 @@ services:
       - traefik.http.routers.node-red.entrypoints=websecure
 #      - traefik.http.routers.homeassistant.tls=true
       - traefik.http.routers.node-red.tls.certresolver=le
-      - traefik.docker.network=homelab_fatheadl-net
+      - traefik.docker.network=core_fatheadl-net
       - traefik.http.routers.node-red.middlewares=my-GeoBlock@file,simpleAuth@file
       
   zigbee2mqtt:
@@ -101,7 +101,7 @@ services:
     ports:
       - 8880:8080
     networks:
-      homelab_fatheadl-net:
+      core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.35
     environment:
       - TZ=${TIMEZONE}
@@ -114,7 +114,7 @@ services:
       - traefik.http.routers.zigbee2mqtt.entrypoints=websecure
 #      - traefik.http.routers.homeassistant.tls=true
       - traefik.http.routers.zigbee2mqtt.tls.certresolver=le
-      - traefik.docker.network=homelab_fatheadl-net
+      - traefik.docker.network=core_fatheadl-net
       - traefik.http.routers.zigbee2mqtt.middlewares=my-GeoBlock@file,simpleAuth@file
       
   broker:
@@ -128,7 +128,7 @@ services:
       - '/var/homelab/mosquitto/data:/mosquitto/data'
     restart: unless-stopped
     networks:
-      homelab_fatheadl-net:
+      core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.36
     ports:
       - "1883:1883"
@@ -141,7 +141,7 @@ services:
     environment:
       - TZ=${TIMEZONE}
     networks:
-      homelab_fatheadl-net:
+      core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.37
 #    network_mode: host
     ports:
@@ -166,7 +166,7 @@ services:
       - traefik.http.routers.homeassistant.entrypoints=websecure
         #      - traefik.http.routers.homeassistant.tls=true
       - traefik.http.routers.homeassistant.tls.certresolver=le
-      - traefik.docker.network=homelab_fatheadl-net
+      - traefik.docker.network=core_fatheadl-net
       - traefik.http.routers.homeassistant.middlewares=my-GeoBlock@file,simpleAuth@file
       
   homebridge:
@@ -181,7 +181,7 @@ services:
     volumes:
       - /var/homelab/homebridge:/homebridge
     networks:
-      homelab_fatheadl-net:
+      core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.38
     ports:
       - 8080:8080
@@ -196,7 +196,7 @@ services:
       - traefik.http.routers.homebridge.entrypoints=websecure
 #      - traefik.http.routers.hoobs.service=hoobs
       - traefik.http.routers.homebridge.tls.certresolver=le
-      - traefik.docker.network=homelab_fatheadl-net
+      - traefik.docker.network=core_fatheadl-net
       - traefik.http.routers.homebridge.middlewares=my-GeoBlock@file,simpleAuth@file
       
   gitea:
@@ -208,7 +208,7 @@ services:
       - TZ=${TIMEZONE}      
     restart: unless-stopped
     networks:
-      homelab_fatheadl-net:
+      core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.39
     volumes:
       - /var/homelab/gitea:/data
@@ -224,11 +224,11 @@ services:
       - traefik.http.routers.gitea.entrypoints=websecure
 #      - traefik.http.routers.hoobs.service=hoobs
       - traefik.http.routers.gitea.tls.certresolver=le
-      - traefik.docker.network=homelab_fatheadl-net
+      - traefik.docker.network=core_fatheadl-net
       - traefik.http.routers.gitea.middlewares=my-GeoBlock@file,simpleAuth@file
       
       
       
 networks:
-  homelab_fatheadl-net:
+  core_fatheadl-net:
     external: true
