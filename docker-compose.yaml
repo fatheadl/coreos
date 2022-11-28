@@ -49,7 +49,7 @@ services:
     restart:
       unless-stopped
     networks:
-      care_fatheadl-net:
+      core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.33
     labels:
       - traefik.enable=true
