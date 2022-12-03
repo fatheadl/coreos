@@ -42,10 +42,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /var/homelab/grafana:/var/lib/grafana
-      - /var/homelab/grafana/provisioning:/etc/grafana/provisioning
-      - /var/homelab/grafana/grafana.ini:/etc/grafana/grafana.ini
-      - /var/homelab/grafana/dashboards:/etc/grafana/dashboards
+      - /var/homelab/grafana-data:/var/lib/grafana
+      - /var/homelab/grafana:/etc/grafana      
     restart:
       unless-stopped
     networks:
