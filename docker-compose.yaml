@@ -22,14 +22,13 @@ services:
       - /var/homelab/influxdb/config:/etc/influxdb
     restart:
       unless-stopped
-    #labels:
-      #- traefik.enable=true
-      #- traefik.http.services.influxdb.loadbalancer.server.port=8086
-      #- traefik.http.routers.influxdb.rule=Host(`in.${PUBLIC_DOMAIN}`)
-      #- traefik.http.routers.influxdb.entrypoints=websecure
-        #      - traefik.http.routers.homeassistant.tls=true
-      #- traefik.http.routers.influxdb.tls.certresolver=le
-      #- traefik.docker.network=homelab_fatheadl-net
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.influxdb.loadbalancer.server.port=8086
+      - traefik.http.routers.influxdb.rule=Host(`in.${PUBLIC_DOMAIN}`)
+      - traefik.http.routers.influxdb.entrypoints=websecure
+      - traefik.http.routers.influxdb.tls.certresolver=le
+      - traefik.docker.network=homelab_fatheadl-net
       #- traefik.http.routers.influxdb.middlewares=my-GeoBlock@file,simpleAuth@file
       
   grafana:
