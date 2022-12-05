@@ -5,12 +5,12 @@ services:
     container_name: influxdb
     environment:
       - TZ=${TIMEZONE}
-      #- INFLUXD_REPORTING_DISABLED=true
-      #- DOCKER_INFLUXDB_INIT_MODE=setup
-      #- DOCKER_INFLUXDB_INIT_USERNAME=admin
-      #- DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_ADMIN_PASSWORD} # set in .env
-      #- DOCKER_INFLUXDB_INIT_ORG=ensom
-      #- DOCKER_INFLUXDB_INIT_BUCKET=solar
+      - INFLUXD_REPORTING_DISABLED=true
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_ADMIN_PASSWORD} # set in .env
+      - DOCKER_INFLUXDB_INIT_ORG=ensom
+      - DOCKER_INFLUXDB_INIT_BUCKET=solar
 
     ports:
       - 8086:8086
