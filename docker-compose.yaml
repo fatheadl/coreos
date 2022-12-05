@@ -18,8 +18,8 @@ services:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.32
     volumes:
-      - /var/homelab/influxdb/data:/var/lib/influxdb
-      - /var/homelab/influxdb/config:/etc/influxdb
+      - /var/homelab/influxdb2/data:/var/lib/influxdb2
+      - /var/homelab/influxdb2/config:/etc/influxdb2
     restart:
       unless-stopped
     labels:
