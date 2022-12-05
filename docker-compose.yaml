@@ -224,6 +224,37 @@ services:
       - traefik.docker.network=core_fatheadl-net
       - traefik.http.routers.gitea.middlewares=my-GeoBlock@file,simpleAuth@file
       
+  tasmobackup:
+    ports:
+      - '8259:80'
+    volumes:
+      - /var/homelab/tasmobackup/data:/var/www/html/data
+    networks:
+      core_fatheadl-net:
+        ipv4_address: ${PRIVATE_NETWORK}.40      
+    environment:
+      # MYSQL env's are not needed if you are using sqlite
+      #- MYSQL_SERVER=IPADDRESS
+      #- MYSQL_USERNAME=USERNAME
+      #- MYSQL_PASSWORD=PASSWORD
+      # change below to mysql if you don't want to use sqlite
+      # you will need to have a mysql server (set above) with a blank database already created.
+      - DBTYPE=sqlite
+      # if using Mysql remove the data/ from the below line
+      # if using Sqlite the data/ is required!
+      - TZ=America/Jamaica
+      - DBNAME=data/tasmobackup
+    container_name: TasmoBackup
+    image: 'danmed/tasmobackupv1'
+    restart: unless-stopped
+    labels:
+       - traefik.enable=true
+       - traefik.http.services.tasmobackup.loadbalancer.server.port=80
+       - traefik.http.routers.tasmobackup.rule=Host(`tb.argohome.duckdns.org`)
+       - traefik.http.routers.tasmobackup.entrypoints=websecure
+#      - traefik.http.routers.homeassistant.tls=true
+       - traefik.http.routers.tasmobackup.tls.certresolver=le      
+      
       
       
 networks:
