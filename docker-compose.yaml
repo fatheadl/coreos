@@ -75,6 +75,7 @@ services:
     volumes:
       - "/var/homelab/node-red:/data"
     privileged: true
+    user: '1000'    
     security_opt:
       - label=disable
     restart: unless-stopped
