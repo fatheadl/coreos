@@ -41,6 +41,7 @@ services:
       - TZ=${TIMEZONE}
       - GF_SERVER_DOMAIN=${PUBLIC_DOMAIN}
     #privileged: true
+    user: '104'
     security_opt:
       - label=disable
     ports:
