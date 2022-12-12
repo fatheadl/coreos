@@ -11,6 +11,9 @@ services:
       - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_ADMIN_PASSWORD} # set in .env
       - DOCKER_INFLUXDB_INIT_ORG=ensom
       - DOCKER_INFLUXDB_INIT_BUCKET=solar
+    privileged: true
+    security_opt:
+      - label=disable      
 
     ports:
       - 8086:8086
@@ -37,7 +40,9 @@ services:
     environment:
       - TZ=${TIMEZONE}
       - GF_SERVER_DOMAIN=${PUBLIC_DOMAIN}
-    user: "0"
+    privileged: true
+    security_opt:
+      - label=disable
     ports:
       - 3000:3000
     volumes:
@@ -53,14 +58,13 @@ services:
       - traefik.http.services.grafana.loadbalancer.server.port=3000
       - traefik.http.routers.grafana.rule=Host(`graf.${PUBLIC_DOMAIN}`)
       - traefik.http.routers.grafana.entrypoints=websecure
-        #      - traefik.http.routers.homeassistant.tls=true
       - traefik.http.routers.grafana.tls.certresolver=le
       - traefik.docker.network=core_fatheadl-net
       #- traefik.http.routers.grafana.middlewares=my-GeoBlock@file,simpleAuth@file
       
   node-red:
- #   depends_on:
- #      - broker
+    depends_on:
+       - broker
     container_name: node-red
     image: nodered/node-red:3.0.2
     environment:
@@ -69,9 +73,10 @@ services:
       - TZ=${TIMEZONE}
     volumes:
       - "/var/homelab/node-red:/data"
-    user: "0"
+    privileged: true
+    security_opt:
+      - label=disable
     restart: unless-stopped
-#    network_mode: host
     networks:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.34
@@ -83,7 +88,6 @@ services:
       - traefik.http.services.node-red.loadbalancer.server.port=1880
       - traefik.http.routers.node-red.rule=Host(`nr.${PUBLIC_DOMAIN}`)
       - traefik.http.routers.node-red.entrypoints=websecure
-#      - traefik.http.routers.homeassistant.tls=true
       - traefik.http.routers.node-red.tls.certresolver=le
       - traefik.docker.network=core_fatheadl-net
       #- traefik.http.routers.node-red.middlewares=my-GeoBlock@file,simpleAuth@file
@@ -97,6 +101,9 @@ services:
       - /run/udev:/run/udev:ro
     ports:
       - 8880:8080
+    privileged: true
+    security_opt:
+      - label=disable      
     networks:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.35
@@ -109,7 +116,6 @@ services:
       - traefik.http.services.zigbee2mqtt.loadbalancer.server.port=8080
       - traefik.http.routers.zigbee2mqtt.rule=Host(`z2m.${PUBLIC_DOMAIN}`)
       - traefik.http.routers.zigbee2mqtt.entrypoints=websecure
-#      - traefik.http.routers.homeassistant.tls=true
       - traefik.http.routers.zigbee2mqtt.tls.certresolver=le
       - traefik.docker.network=core_fatheadl-net
       #- traefik.http.routers.zigbee2mqtt.middlewares=my-GeoBlock@file,simpleAuth@file
@@ -130,19 +136,23 @@ services:
     ports:
       - "1883:1883"
       - "9001:9001"
+    privileged: true
+    security_opt:
+      - label=disable      
       
   homeassistant:
     container_name: homeassistant
-    #    image: homeassistant/raspberrypi4-homeassistant:stable
     image: homeassistant/home-assistant:2022.12.3
     environment:
       - TZ=${TIMEZONE}
     networks:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.37
-#    network_mode: host
     ports:
       - "8123:8123"
+    privileged: true
+    security_opt:
+      - label=disable      
     volumes:
       - /var/homelab/homeassistant:/config
 #      - /etc/localtime:/etc/localtime:ro
@@ -161,7 +171,6 @@ services:
       - traefik.http.services.homeassistant.loadbalancer.server.port=8123
       - traefik.http.routers.homeassistant.rule=Host(`ha.${PUBLIC_DOMAIN}`)
       - traefik.http.routers.homeassistant.entrypoints=websecure
-        #      - traefik.http.routers.homeassistant.tls=true
       - traefik.http.routers.homeassistant.tls.certresolver=le
       - traefik.docker.network=core_fatheadl-net
       #- traefik.http.routers.homeassistant.middlewares=my-GeoBlock@file,simpleAuth@file
@@ -184,6 +193,9 @@ services:
       - 8080:8080
       - 8181:8181
       - 51826:51826
+    privileged: true
+    security_opt:
+      - label=disable      
     restart: unless-stopped
 #    network_mode: host
     labels:
@@ -191,7 +203,6 @@ services:
       - traefik.http.services.homebridge.loadbalancer.server.port=8581
       - traefik.http.routers.homebridge.rule=Host(`hb.${PUBLIC_DOMAIN}`)
       - traefik.http.routers.homebridge.entrypoints=websecure
-#      - traefik.http.routers.hoobs.service=hoobs
       - traefik.http.routers.homebridge.tls.certresolver=le
       - traefik.docker.network=core_fatheadl-net
       #- traefik.http.routers.homebridge.middlewares=my-GeoBlock@file,simpleAuth@file
@@ -214,12 +225,14 @@ services:
     ports:
       - "3030:3000"
       - "222:22"
+    privileged: true
+    security_opt:
+      - label=disable      
     labels:
       - traefik.enable=true
       - traefik.http.services.gitea.loadbalancer.server.port=3000
       - traefik.http.routers.gitea.rule=Host(`gitea.${PUBLIC_DOMAIN}`)
       - traefik.http.routers.gitea.entrypoints=websecure
-#      - traefik.http.routers.hoobs.service=hoobs
       - traefik.http.routers.gitea.tls.certresolver=le
       - traefik.docker.network=core_fatheadl-net
       - traefik.http.routers.gitea.middlewares=my-GeoBlock@file,simpleAuth@file
@@ -227,6 +240,9 @@ services:
   tasmobackup:
     ports:
       - '8259:80'
+    privileged: true
+    security_opt:
+      - label=disable      
     volumes:
       - /var/homelab/tasmobackup/data:/var/www/html/data
     networks:
@@ -252,7 +268,6 @@ services:
        - traefik.http.services.tasmobackup.loadbalancer.server.port=80
        - traefik.http.routers.tasmobackup.rule=Host(`tb.argohome.duckdns.org`)
        - traefik.http.routers.tasmobackup.entrypoints=websecure
-#      - traefik.http.routers.homeassistant.tls=true
        - traefik.http.routers.tasmobackup.tls.certresolver=le      
       
       
