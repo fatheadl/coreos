@@ -75,7 +75,7 @@ services:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.41
     environment:
-      TZ=${TIMEZONE}
+      - TZ=${TIMEZONE}
      
       
   node-red:
