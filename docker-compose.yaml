@@ -21,7 +21,7 @@ services:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.32
     volumes:
-      - /var/homelab/influxdb2/data:/var/lib/influxdb2
+      - /var/homelab/influxdb2/data:/var/lib/influxdb2:z
       - /var/homelab/influxdb2/config:/etc/influxdb2
     restart:
       unless-stopped
@@ -47,8 +47,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /var/homelab/grafana-data:/var/lib/grafana
-      - /var/homelab/grafana:/etc/grafana      
+      - /var/homelab/grafana-data:/var/lib/grafana:z
+      #- /var/homelab/grafana:/etc/grafana      
     restart:
       unless-stopped
     networks:
@@ -90,7 +90,7 @@ services:
     #      - CONTAINER_TIMEZONE=${TIMEZONE}
       - TZ=${TIMEZONE}
     volumes:
-      - "/var/homelab/node-red:/data"
+      - /var/homelab/node-red:/data:z
     privileged: true
     user: '1000'    
     security_opt:
@@ -116,7 +116,7 @@ services:
     restart: unless-stopped
     image: koenkk/zigbee2mqtt:1.29.1
     volumes:
-      - /var/homelab/zigbee2mqtt-data:/app/data
+      - /var/homelab/zigbee2mqtt-data:/app/data:z
       - /run/udev:/run/udev:ro
     ports:
       - 8880:8080
@@ -179,9 +179,9 @@ services:
     environment:
       - TZ=${TIMEZONE}
     volumes:
-      - '/var/homelab/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf'
-      - '/var/homelab/mosquitto/log:/mosquitto/log'
-      - '/var/homelab/mosquitto/data:/mosquitto/data'
+      - /var/homelab/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf:z
+      - /var/homelab/mosquitto/log:/mosquitto/log:z
+      - /var/homelab/mosquitto/data:/mosquitto/data:z
     restart: unless-stopped
     networks:
       core_fatheadl-net:
@@ -207,7 +207,7 @@ services:
     security_opt:
       - label=disable      
     volumes:
-      - /var/homelab/homeassistant:/config
+      - /var/homelab/homeassistant:/config:z
 #      - /etc/localtime:/etc/localtime:ro
 #      - /etc/letsencrypt:/etc/letsencrypt:ro
 #    devices:
@@ -238,7 +238,7 @@ services:
       - HOMEBRIDGE_CONFIG_UI=1
       - HOMEBRIDGE_CONFIG_UI_PORT=8581
     volumes:
-      - /var/homelab/homebridge:/homebridge
+      - /var/homelab/homebridge:/homebridge:z
     networks:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.38
@@ -272,7 +272,7 @@ services:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.39
     volumes:
-      - /var/homelab/gitea:/data
+      - /var/homelab/gitea:/data:z
 #      - /etc/timezone:/etc/timezone:ro
 #      - /etc/localtime:/etc/localtime:ro
     ports:
@@ -297,7 +297,7 @@ services:
     security_opt:
       - label=disable      
     volumes:
-      - /var/homelab/tasmobackup/data:/var/www/html/data
+      - /var/homelab/tasmobackup/data:/var/www/html/data:z
     networks:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.40      
