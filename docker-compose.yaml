@@ -195,7 +195,7 @@ services:
       
   homeassistant:
     container_name: homeassistant
-    image: homeassistant/home-assistant:2023.2.3
+    image: homeassistant/home-assistant:2023.2.4
     environment:
       - TZ=${TIMEZONE}
     networks:
