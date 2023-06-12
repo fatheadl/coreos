@@ -63,39 +63,39 @@ services:
       - traefik.docker.network=core_fatheadl-net
       #- traefik.http.routers.grafana.middlewares=my-GeoBlock@file,simpleAuth@file
       
-  loki:
-    image: grafana/loki:2.8.2
-    ports:
-      - "3100:3100"
-    command: -config.file=/etc/loki/local-config.yaml
-    networks:
-      core_fatheadl-net:
-        ipv4_address: ${PRIVATE_NETWORK}.43
+  #loki:
+  #  image: grafana/loki:2.8.2
+  #  ports:
+  #    - "3100:3100"
+  #  command: -config.file=/etc/loki/local-config.yaml
+  #  networks:
+  #    core_fatheadl-net:
+  #      ipv4_address: ${PRIVATE_NETWORK}.43
 
-  promtail:
-    image: grafana/promtail:2.8.2
-    volumes:
-      - /var/log:/var/log
-    command: -config.file=/etc/promtail/config.yml
-    networks:
-      core_fatheadl-net:
-        ipv4_address: ${PRIVATE_NETWORK}.42      
+  #promtail:
+  #  image: grafana/promtail:2.8.2
+  #  volumes:
+  #    - /var/log:/var/log
+  #  command: -config.file=/etc/promtail/config.yml
+  #  networks:
+  #    core_fatheadl-net:
+  #      ipv4_address: ${PRIVATE_NETWORK}.42      
       
-  telegraf:
-    image: telegraf:1.26.3
-    container_name: telegraf
-    links:
-      - influxdb
-    security_opt:
-      - label=disable      
-    volumes:
-      - /var/homelab/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
-    restart: unless-stopped
-    networks:
-      core_fatheadl-net:
-        ipv4_address: ${PRIVATE_NETWORK}.41
-    environment:
-      - TZ=${TIMEZONE}
+  #telegraf:
+  #  image: telegraf:1.26.3
+  #  container_name: telegraf
+  #  links:
+  #    - influxdb
+  #  security_opt:
+  #    - label=disable      
+  #  volumes:
+  #    - /var/homelab/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+  #  restart: unless-stopped
+  #  networks:
+  #    core_fatheadl-net:
+  #      ipv4_address: ${PRIVATE_NETWORK}.41
+  #  environment:
+  #    - TZ=${TIMEZONE}
      
       
   node-red:
@@ -278,35 +278,35 @@ services:
       - traefik.docker.network=core_fatheadl-net
       #- traefik.http.routers.homebridge.middlewares=my-GeoBlock@file,simpleAuth@file
       
-  gitea:
-    image: gitea/gitea:1.19.3
-    container_name: gitea
-    environment:
-      - USER_UID=1000
-      - USER_GID=1000
-      - TZ=${TIMEZONE}      
-    restart: unless-stopped
-    networks:
-      core_fatheadl-net:
-        ipv4_address: ${PRIVATE_NETWORK}.39
-    volumes:
-      - /var/homelab/gitea:/data:z
+  #gitea:
+  #  image: gitea/gitea:1.19.3
+  #  container_name: gitea
+  #  environment:
+  #    - USER_UID=1000
+  #    - USER_GID=1000
+  #    - TZ=${TIMEZONE}      
+  #  restart: unless-stopped
+  #  networks:
+  #    core_fatheadl-net:
+  #      ipv4_address: ${PRIVATE_NETWORK}.39
+  #  volumes:
+  #    - /var/homelab/gitea:/data:z
 #      - /etc/timezone:/etc/timezone:ro
 #      - /etc/localtime:/etc/localtime:ro
-    ports:
-      - "3030:3000"
-      - "222:22"
-    privileged: true
-    security_opt:
-      - label=disable      
-    labels:
-      - traefik.enable=true
-      - traefik.http.services.gitea.loadbalancer.server.port=3000
-      - traefik.http.routers.gitea.rule=Host(`gitea.${PUBLIC_DOMAIN}`)
-      - traefik.http.routers.gitea.entrypoints=websecure
-      - traefik.http.routers.gitea.tls.certresolver=le
-      - traefik.docker.network=core_fatheadl-net
-      - traefik.http.routers.gitea.middlewares=my-GeoBlock@file,simpleAuth@file
+   # ports:
+   #   - "3030:3000"
+   #   - "222:22"
+   # privileged: true
+   # security_opt:
+   #   - label=disable      
+   # labels:
+   #   - traefik.enable=true
+   #   - traefik.http.services.gitea.loadbalancer.server.port=3000
+   #   - traefik.http.routers.gitea.rule=Host(`gitea.${PUBLIC_DOMAIN}`)
+   #   - traefik.http.routers.gitea.entrypoints=websecure
+   #   - traefik.http.routers.gitea.tls.certresolver=le
+   #   - traefik.docker.network=core_fatheadl-net
+   #   - traefik.http.routers.gitea.middlewares=my-GeoBlock@file,simpleAuth@file
       
   tasmobackup:
     ports:
