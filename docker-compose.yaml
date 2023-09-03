@@ -13,7 +13,8 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=solar
     #privileged: true
     security_opt:
-      - label=disable      
+      - label=disable
+      - no-new-privileges:true      
 
     ports:
       - 8086:8086
@@ -44,6 +45,7 @@ services:
     user: '1000'
     security_opt:
       - label=disable
+      - no-new-privileges:true      
     ports:
       - 3000:3000
     volumes:
@@ -113,6 +115,7 @@ services:
     user: '1000'    
     security_opt:
       - label=disable
+      - no-new-privileges:true      
     restart: unless-stopped
     networks:
       core_fatheadl-net:
@@ -140,7 +143,8 @@ services:
       - 8880:8080
     #privileged: true
     security_opt:
-      - label=disable      
+      - label=disable
+      - no-new-privileges:true      
     networks:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.35
@@ -209,7 +213,8 @@ services:
       - "9001:9001"
     #privileged: true
     security_opt:
-      - label=disable      
+      - label=disable
+      - no-new-privileges:true      
       
   homeassistant:
     container_name: homeassistant
@@ -223,7 +228,8 @@ services:
       - "8123:8123"
     #privileged: true
     security_opt:
-      - label=disable      
+      - label=disable
+      - no-new-privileges:true      
     volumes:
       - /var/homelab/homeassistant:/config:z
 #      - /etc/localtime:/etc/localtime:ro
@@ -266,7 +272,8 @@ services:
       - 51826:51826
     #privileged: true
     security_opt:
-      - label=disable      
+      - label=disable
+      - no-new-privileges:true      
     restart: unless-stopped
 #    network_mode: host
     labels:
@@ -313,7 +320,8 @@ services:
       - '8259:80'
     #privileged: true
     security_opt:
-      - label=disable      
+      - label=disable
+      - no-new-privileges:true      
     volumes:
       - /var/homelab/tasmobackup/data:/var/www/html/data:z
     networks:
