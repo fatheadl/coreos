@@ -65,23 +65,23 @@ services:
       - traefik.docker.network=core_fatheadl-net
       #- traefik.http.routers.grafana.middlewares=my-GeoBlock@file,simpleAuth@file
       
-  #loki:
-  #  image: grafana/loki:2.8.2
-  #  ports:
-  #    - "3100:3100"
-  #  command: -config.file=/etc/loki/local-config.yaml
-  #  networks:
-  #    core_fatheadl-net:
-  #      ipv4_address: ${PRIVATE_NETWORK}.43
+  loki:
+    image: grafana/loki:2.8.2
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      core_fatheadl-net:
+        ipv4_address: ${PRIVATE_NETWORK}.43
 
-  #promtail:
-  #  image: grafana/promtail:2.8.2
-  #  volumes:
-  #    - /var/log:/var/log
-  #  command: -config.file=/etc/promtail/config.yml
-  #  networks:
-  #    core_fatheadl-net:
-  #      ipv4_address: ${PRIVATE_NETWORK}.42      
+  promtail:
+    image: grafana/promtail:2.8.2
+    volumes:
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/config.yml
+    networks:
+      core_fatheadl-net:
+        ipv4_address: ${PRIVATE_NETWORK}.42      
       
   #telegraf:
   #  image: telegraf:1.26.3
