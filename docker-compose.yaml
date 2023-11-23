@@ -79,7 +79,7 @@ services:
     image: grafana/promtail:2.9.2
     container_name: promtail
     volumes:
-      - /var/log:/var/log:z
+      - /var/log:/var/log
       - /var/homelab/promtail/config/config.yml:/etc/promtail/config.yml:z
     command: -config.file=/etc/promtail/config.yml
     networks:
