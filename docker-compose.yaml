@@ -67,6 +67,7 @@ services:
       
   loki:
     image: grafana/loki:2.9.2
+    ontainer_name: loki
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
@@ -76,8 +77,10 @@ services:
 
   promtail:
     image: grafana/promtail:2.9.2
+    ontainer_name: promtail
     volumes:
       - /var/log:/var/log
+      - /var/homelab/promtail/config/config.yml:/etc/promtail/config.yml:z
     command: -config.file=/etc/promtail/config.yml
     networks:
       core_fatheadl-net:
