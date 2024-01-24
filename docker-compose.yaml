@@ -76,7 +76,7 @@ services:
         ipv4_address: ${PRIVATE_NETWORK}.39
 
   promtail:
-    image: grafana/promtail:2.9.3
+    image: grafana/promtail:2.9.4
     container_name: promtail
     volumes:
       - /var/log:/var/log
