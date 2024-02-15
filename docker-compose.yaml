@@ -85,7 +85,7 @@ services:
     environment:
       - TZ=${TIMEZONE}    
     volumes:
-      - /var/log:/var/log:z
+      - /var/log:/var/log
       - /var/homelab/promtail/config/:/etc/promtail/:z
     command: -config.file=/etc/promtail/config.yml
     networks:
