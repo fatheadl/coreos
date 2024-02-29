@@ -66,7 +66,7 @@ services:
       #- traefik.http.routers.grafana.middlewares=my-GeoBlock@file,simpleAuth@file
       
   loki:
-    image: grafana/loki:2.9.5
+    image: grafana/loki:2.9.4
     container_name: loki
     environment:
       - TZ=${TIMEZONE}    
@@ -80,7 +80,7 @@ services:
         ipv4_address: ${PRIVATE_NETWORK}.39
 
   promtail:
-    image: grafana/promtail:2.9.5
+    image: grafana/promtail:2.9.4
     container_name: promtail
     environment:
       - TZ=${TIMEZONE}    
