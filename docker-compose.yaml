@@ -75,6 +75,7 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
       - /var/homelab/loki/config:/etc/loki/:z
+      - /var/homelab/loki/log-data:/loki:z
     networks:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.39
