@@ -84,7 +84,7 @@ services:
         ipv4_address: ${PRIVATE_NETWORK}.39
 
   promtail:
-    image: grafana/promtail:3.3.2
+    image: grafana/promtail:3.4.1
     container_name: promtail
     environment:
       - TZ=${TIMEZONE}    
