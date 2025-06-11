@@ -125,21 +125,22 @@ services:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.42        
       
-  #telegraf:
-  #  image: telegraf:1.26.3
-  #  container_name: telegraf
-  #  links:
-  #    - influxdb
-  #  security_opt:
-  #    - label=disable      
-  #  volumes:
-  #    - /var/homelab/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
-  #  restart: unless-stopped
-  #  networks:
-  #    core_fatheadl-net:
-  #      ipv4_address: ${PRIVATE_NETWORK}.41
-  #  environment:
-  #    - TZ=${TIMEZONE}
+  telegraf:
+    image: telegraf:1.26.3
+    container_name: telegraf
+    links:
+      - influxdb
+    security_opt:
+      - label=disable
+      - no-new-privileges:true      
+    volumes:
+      - /var/homelab/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    restart: unless-stopped
+    networks:
+      core_fatheadl-net:
+        ipv4_address: ${PRIVATE_NETWORK}.41
+    environment:
+      - TZ=${TIMEZONE}
      
       
   node-red:
