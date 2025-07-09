@@ -113,7 +113,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/log:/var/log
-      - /var/homelab/alloy/config/:/etc/alloy/config.alloy:z
+      - /var/homelab/alloy/config/:/etc/alloy/:z
     command: 'run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy'
     restart:
       unless-stopped
