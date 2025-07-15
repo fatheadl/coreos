@@ -296,7 +296,7 @@ services:
       #- traefik.http.routers.homeassistant.middlewares=my-GeoBlock@file,simpleAuth@file
       
   homebridge:
-    image: ghcr.io/homebridge/homebridge:ubuntu@sha256:fe15d62af86b337225649fa8f58f02cd141f02cff2e3917d73cfc2dba010594b
+    image: ghcr.io/homebridge/homebridge:ubuntu@sha256:1871bd378a1840fd49ad011f4f2944555f9e08ac0fa9d95e60c6ad6a8441f7cb
     container_name: homebridge
     environment:
       - TZ=${TIMEZONE}
