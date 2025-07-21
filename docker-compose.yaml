@@ -136,7 +136,7 @@ services:
     volumes:
       - /var/homelab/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     restart: unless-stopped
-    network: host
+    network_mode: "host"
     networks:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.41
