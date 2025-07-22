@@ -132,7 +132,7 @@ services:
     links:
       - influxdb
     ports:
-      - 2055:2055      
+      - 2055:2055/udp      
     security_opt:
       - label=disable
       - no-new-privileges:true      
