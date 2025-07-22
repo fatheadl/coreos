@@ -128,7 +128,7 @@ services:
   telegraf:
     image: telegraf:1.35.2
     container_name: telegraf
-    hostname: telegraf
+    #hostname: telegraf
     links:
       - influxdb
     security_opt:
@@ -137,7 +137,7 @@ services:
     volumes:
       - /var/homelab/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     restart: unless-stopped
-    network_mode: host
+    #network_mode: host
     networks:
       core_fatheadl-net:
         ipv4_address: ${PRIVATE_NETWORK}.41
