@@ -265,7 +265,7 @@ services:
       
   homeassistant:
     container_name: homeassistant
-    image: homeassistant/home-assistant:2025.8.1
+    image: homeassistant/home-assistant:2025.8.2
     environment:
       - TZ=${TIMEZONE}
     networks:
