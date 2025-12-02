@@ -182,7 +182,7 @@ services:
   zigbee2mqtt:
     container_name: zigbee2mqtt
     restart: unless-stopped
-    image: koenkk/zigbee2mqtt:2.6.3
+    image: koenkk/zigbee2mqtt:2.7.0
     volumes:
       - /var/homelab/zigbee2mqtt-data:/app/data:z
       - /run/udev:/run/udev:ro
