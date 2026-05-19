@@ -40,7 +40,7 @@ services:
     container_name: grafana
     environment:
       - TZ=${TIMEZONE}
-      - GF_SERVER_DOMAIN=${PUBLIC_DOMAIN}
+      - GF_SERVER_DOMAIN=graf.${PUBLIC_DOMAIN}
     #privileged: true
     user: '1000'
     security_opt:
